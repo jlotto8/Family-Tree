@@ -86,8 +86,8 @@ def create_family_tree_graph(people):
     print(f"Graph rendered and saved to {output_path}.gv and {output_path}.png")
 
 def main():
-    people = read_individuals('person_fam_tree.csv')
-    read_relationships('relationship.csv', people)
+    people = read_individuals('individuals.csv')
+    read_relationships('relationships.csv', people)
     create_family_tree_graph(people)
 
 if __name__ == "__main__":

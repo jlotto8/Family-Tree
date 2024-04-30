@@ -4,6 +4,7 @@ This prgram is designed to create a family tree using data stored in two CSV fil
 import pandas as pd
 import graphviz
 
+# Represents a single indvidual in the famliy tree. All attributes except id, name, and gender are optional (not all data will be known, or available ex death date if person is still living)
 class Person:
     def __init__(self, id, name, gender, birth_date=None, death_date=None, birth_location=None, other_details=None):
         self.id = id
@@ -18,10 +19,12 @@ class Person:
         self.parents = []
         self.siblings = []
 
+# Reads individuals from a CSV file and creates a Person object for each.
+# Process: Opens the CSV file and reads each row. For each row, it creates a Person object, filling in all the details from the CSV. Adds each Person object to a dictionary with their id as the key.
 def read_individuals(filename):
     df = pd.read_csv(filename)
     people = {}
-    for index, row in df.iterrows():
+    for index, row in df.iterrows(): # pandas dataframe 
         person = Person(
             int(row['ID']),
             row['Name'],
@@ -86,7 +89,7 @@ def create_family_tree_graph(people):
     print(f"Graph rendered and saved to {output_path}.gv and {output_path}.png")
 
 def main():
-    people = read_individuals('individuals.csv')
+    people = read_individuals('Individuals.csv')
     read_relationships('relationships.csv', people)
     create_family_tree_graph(people)
 

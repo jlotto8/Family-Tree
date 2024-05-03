@@ -67,16 +67,16 @@ def read_data(filename):
 #         node_shape = 'square' if person.gender == 'M' else 'ellipse'  # Choose shape based on gender
 #         node_color = 'lightblue' if person.gender == 'M' else 'pink'  # Choose color based on gender
 
-#         # Create a label for the node using HTML-like labels
-#         # Adjust the font size for the name to be larger than the dates
-#         node_label = f'<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="3"><TR><TD><FONT POINT-SIZE="19">{person.name}</FONT></TD></TR>'
-#         if pd.notna(person.birth_date):  # Check if birth date is not null or NaN
-#             # Make the birth date font size smaller
-#             node_label += f'<TR><TD><FONT POINT-SIZE="15">Born: {int(person.birth_date)}</FONT></TD></TR>'  # Smaller font for birth date
-#         if pd.notna(person.death_date):  # Check if death date is not null or NaN
-#             # Make the death date font size smaller
-#             node_label += f'<TR><TD><FONT POINT-SIZE="15">Died: {int(person.death_date)}</FONT></TD></TR>'  # Smaller font for death date
-#         node_label += '</TABLE>>'
+        # # Create a label for the node using HTML-like labels
+        # # Adjust the font size for the name to be larger than the dates
+        # node_label = f'<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="3"><TR><TD><FONT POINT-SIZE="19">{person.name}</FONT></TD></TR>'
+        # if pd.notna(person.birth_date):  # Check if birth date is not null or NaN
+        #     # Make the birth date font size smaller
+        #     node_label += f'<TR><TD><FONT POINT-SIZE="15">Born: {int(person.birth_date)}</FONT></TD></TR>'  # Smaller font for birth date
+        # if pd.notna(person.death_date):  # Check if death date is not null or NaN
+        #     # Make the death date font size smaller
+        #     node_label += f'<TR><TD><FONT POINT-SIZE="15">Died: {int(person.death_date)}</FONT></TD></TR>'  # Smaller font for death date
+        # node_label += '</TABLE>>'
 
 #         # Create node for each person with custom attributes
 #         dot.node(str(person.id), label=node_label, shape=node_shape, style='filled', fillcolor=node_color)
@@ -93,41 +93,154 @@ def read_data(filename):
 #     dot.render(output_path, view=True)  # Render and save the graph
 #     print(f"Graph rendered and saved to {output_path}.gv and {output_path}.png")
 
+# def create_family_tree_graph(people):
+#     # Create the Graphviz graph
+#     dot = graphviz.Digraph('Family Tree', format='png')
+#     dot.attr(rankdir='TB', size='10,10', newrank='true', bgcolor='lightgray')  # Set attributes for the graph
+
+#     # Define nodes and relationships for each person
+#     for person in people.values():
+#         node_shape = 'square' if person.gender == 'M' else 'ellipse'  # Choose shape based on gender
+#         node_color = 'lightblue' if person.gender == 'M' else 'pink'  # Choose color based on gender
+
+#         # Create a label for the node using HTML-like labels
+#         node_label = f'<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="3"><TR><TD><FONT POINT-SIZE="19">{person.name}</FONT></TD></TR>'
+#         if pd.notna(person.birth_date):  # Check if birth date is not null or NaN
+#             node_label += f'<TR><TD><FONT POINT-SIZE="15">Born: {int(person.birth_date)}</FONT></TD></TR>'
+#         if pd.notna(person.death_date):  # Check if death date is not null or NaN
+#             node_label += f'<TR><TD><FONT POINT-SIZE="15">Died: {int(person.death_date)}</FONT></TD></TR>'
+#         node_label += '</TABLE>>'
+
+#         # Create node for each person with custom attributes
+#         dot.node(str(person.id), label=node_label, shape=node_shape, style='filled', fillcolor=node_color, width="1.5", height="0.5")
+
+#         # Create edges for parental relationships
+#         for child in person.children:
+#             dot.edge(str(person.id), str(child.id), label='Parent', color='blue')
+
+#         # Handle spousal relationships with rank=same to keep them on the same level
+#         if person.spouse and int(person.id) < int(person.spouse.id):  # To avoid duplicate edges
+#             # This subgraph ensures that spouses appear on the same horizontal level
+#             with dot.subgraph() as s:
+#                 s.attr(rank='same')
+#                 s.edge(str(person.id), str(person.spouse.id), label='Spouse', dir='none', color='red')
+
+#     output_path = 'output/family_tree'
+#     dot.render(output_path, view=True)  # Render and save the graph
+#     print(f"Graph rendered and saved to {output_path}.gv and {output_path}.png")
+
+# def create_family_tree_graph(people):
+#     # Create the Graphviz graph
+#     dot = graphviz.Digraph('Family Tree', format='png')
+#     dot.attr(rankdir='TB', size='10,10', newrank='true', bgcolor='lightgray')  # Set attributes for the graph
+
+#     # Define nodes and relationships for each person
+#     for person in people.values():
+#         node_shape = 'square' if person.gender == 'M' else 'ellipse'  # Choose shape based on gender
+#         node_color = 'lightblue' if person.gender == 'M' else 'pink'  # Choose color based on gender
+
+#         # Create node for each person with custom attributes
+#         dot.node(str(person.id), label=person.name, shape=node_shape, style='filled', fillcolor=node_color, width="1.5", height="0.5")
+
+#         # Invisible nodes for couples to connect spouse and children
+#         if person.spouse and int(person.id) < int(person.spouse.id):  # Ensure each couple is processed only once
+#             couple_id = f"couple_{person.id}_{person.spouse.id}"
+#             dot.node(couple_id, style="invis", width=".1", height=".1")  # Invisible node
+#             dot.edge(str(person.id), couple_id, style="invis")  # Invisible edge to the couple node
+#             dot.edge(str(person.spouse.id), couple_id, style="invis")  # Invisible edge to the couple node
+
+#             # Connecting children to the couple node
+#             for child in person.children:
+#                 dot.edge(couple_id, str(child.id), label='Parent')  # Visible edge from couple to child
+
+#     output_path = 'output/family_tree'
+#     dot.render(output_path, view=True)  # Render and save the graph
+#     print(f"Graph rendered and saved to {output_path}.gv and {output_path}.png")
+
+
+# def create_family_tree_graph(people):
+#     # Create the Graphviz graph
+#     dot = graphviz.Digraph('Family Tree', format='png')
+#     dot.attr(rankdir='TB', size='10,10', newrank='true', bgcolor='lightgray')  # Set attributes for the graph
+
+#     # Additional graph styling
+#     dot.attr('node', style='filled', fontname='Helvetica', fontsize='12', width=".1", height=".1")
+#     dot.attr('edge', fontname='Courier', fontsize='10', arrowsize='0.5')
+
+#     # Define nodes and relationships for each person
+#     for person in people.values():
+#         node_shape = 'square' if person.gender == 'M' else 'ellipse'  # Choose shape based on gender
+#         node_color = 'lightblue' if person.gender == 'M' else 'pink'  # Choose color based on gender
+
+#         # Create node for each person with custom attributes
+#         dot.node(str(person.id), label=person.name, shape=node_shape, color=node_color)
+
+#         # Invisible nodes for couples to connect spouse and children
+#         if person.spouse and int(person.id) < int(person.spouse.id):  # Ensure each couple is processed only once
+#             couple_id = f"couple_{person.id}_{person.spouse.id}"
+#             dot.node(couple_id, label='', shape='point', width='0.01', height='0.01', style='invis')  # Extremely small invisible node
+
+#             # Invisible edges to the couple node
+#             dot.edge(str(person.id), couple_id, style="invis")
+#             dot.edge(str(person.spouse.id), couple_id, style="invis")
+
+#             # Connecting children to the couple node with visible edges
+#             for child in person.children:
+#                 dot.edge(couple_id, str(child.id), style='solid', label='Parent')
+
+#     output_path = 'output/family_tree'
+#     dot.render(output_path, view=True)  # Render and save the graph
+#     print(f"Graph rendered and saved to {output_path}.gv and {output_path}.png")
+
+
 def create_family_tree_graph(people):
     # Create the Graphviz graph
     dot = graphviz.Digraph('Family Tree', format='png')
-    dot.attr(rankdir='TB', size='10,10', newrank='true', bgcolor='lightgray')  # Set attributes for the graph
+    dot.attr(rankdir='TB', size='10,10', newrank='true', bgcolor='lightgray')
+    dot.attr('node', style='filled', fontname='Helvetica', fontsize='12')
+    dot.attr('edge', fontname='Courier', fontsize='10', arrowsize='0.5')
 
     # Define nodes and relationships for each person
     for person in people.values():
-        node_shape = 'square' if person.gender == 'M' else 'ellipse'  # Choose shape based on gender
-        node_color = 'lightblue' if person.gender == 'M' else 'pink'  # Choose color based on gender
+        # Apply gender-specific node shapes and colors
+        node_shape = 'square' if person.gender == 'M' else 'ellipse'
+        node_color = 'lightblue' if person.gender == 'M' else 'pink'
 
-        # Create a label for the node using HTML-like labels
-        node_label = f'<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="3"><TR><TD><FONT POINT-SIZE="19">{person.name}</FONT></TD></TR>'
-        if pd.notna(person.birth_date):  # Check if birth date is not null or NaN
-            node_label += f'<TR><TD><FONT POINT-SIZE="15">Born: {int(person.birth_date)}</FONT></TD></TR>'
-        if pd.notna(person.death_date):  # Check if death date is not null or NaN
-            node_label += f'<TR><TD><FONT POINT-SIZE="15">Died: {int(person.death_date)}</FONT></TD></TR>'
-        node_label += '</TABLE>>'
+        # Node label with birth and death dates formatted using HTML-like labels
+        node_label = f"<<TABLE BORDER='0' CELLBORDER='0' CELLSPACING='3'><TR><TD>{person.name}</TD></TR>"
+        if pd.notna(person.birth_date):
+            node_label += f"<TR><TD>Birth: {int(person.birth_date)}</TD></TR>"
+        if pd.notna(person.death_date):
+            node_label += f"<TR><TD>Death: {int(person.death_date)}</TD></TR>"
+        node_label += "</TABLE>>"
 
         # Create node for each person with custom attributes
-        dot.node(str(person.id), label=node_label, shape=node_shape, style='filled', fillcolor=node_color, width="1.5", height="0.5")
+        dot.node(str(person.id), label=node_label, shape=node_shape, color='black', fillcolor=node_color, width="1.5", height="0.5")
 
-        # Create edges for parental relationships
-        for child in person.children:
-            dot.edge(str(person.id), str(child.id), label='Parent', color='blue')
+        # Handling spousal and child relationships with more clarity
+        if person.spouse and int(person.id) < int(person.spouse.id):
+            # Invisible node for couple connection
+            couple_id = f"couple_{person.id}_{person.spouse.id}"
+            dot.node(couple_id, label='', shape='point', style='invis', width='0.1', height='0.1')
 
-        # Handle spousal relationships with rank=same to keep them on the same level
-        if person.spouse and int(person.id) < int(person.spouse.id):  # To avoid duplicate edges
-            # This subgraph ensures that spouses appear on the same horizontal level
-            with dot.subgraph() as s:
-                s.attr(rank='same')
-                s.edge(str(person.id), str(person.spouse.id), label='Spouse', dir='none', color='red')
+            # Connect spouses to the invisible node
+            dot.edge(str(person.id), couple_id, style="invis")
+            dot.edge(str(person.spouse.id), couple_id, style="invis")
+
+            # Connecting children to the invisible node with visible edges
+            for child in person.children:
+                dot.edge(couple_id, str(child.id), label='Parent', style='solid')
 
     output_path = 'output/family_tree'
-    dot.render(output_path, view=True)  # Render and save the graph
+    dot.render(output_path, view=True)
     print(f"Graph rendered and saved to {output_path}.gv and {output_path}.png")
+
+# Example of how to run this function (assuming read_data is defined correctly and called here).
+# people = read_data('your_data_file.csv')
+# create_family_tree_graph(people)
+
+
+# This is a placeholder for where your `read_data` function and `main` logic would go.
 
 
 def main():

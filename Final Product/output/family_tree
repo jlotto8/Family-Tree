@@ -1,22 +1,97 @@
 digraph FamilyTree {
 	rankdir=TB splines=ortho
 	node [fontname=Helvetica fontsize=18 height=1.8 margin=0.1 pad=2 shape=ellipse style=filled width=2.7]
-	1 [label="John Doe 
- 1990" center=true fillcolor=lightblue3]
-	2 [label="Jane Smith 
- 1989" center=true fillcolor=plum1]
-	3 [label="Child One 
- 2010" center=true fillcolor=lightblue3]
-	joint_1_2 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
+	1 [label="Soloman Lotto 
+ " center=true fillcolor=lightblue3]
+	2 [label="Abraham Lotto 
+ 1882" center=true fillcolor=lightblue3]
+	3 [label="Sophie Goldowsky 
+ 1892" center=true fillcolor=plum1]
+	4 [label="Leah Visofsky 
+ " center=true fillcolor=plum1]
+	5 [label="Joseph Visofsky 
+ " center=true fillcolor=lightblue3]
+	6 [label="Bernard Lotto 
+ 1915" center=true fillcolor=lightblue3]
+	7 [label="Gussie Goldstein 
+ " center=true fillcolor=plum1]
+	8 [label="Anna Goldstein 
+ 1889" center=true fillcolor=plum1]
+	9 [label="Charles Weiss 
+ 1888" center=true fillcolor=lightblue3]
+	10 [label="Dorothy Weiss 
+ 1918" center=true fillcolor=plum1]
+	11 [label="David Lotto 
+ 1946" center=true fillcolor=lightblue3]
+	12 [label="Norah Walsh 
+ 1945" center=true fillcolor=plum1]
+	13 [label="Jessica Lotto 
+ 1985" center=true fillcolor=plum1]
+	14 [label="Evelyn Kickery 
+ 2017" center=true fillcolor=plum1]
+	15 [label="Vera Kickery 
+ 2023" center=true fillcolor=plum1]
+	23 [label="Joseph Kickery 
+ 1985" center=true fillcolor=lightblue3]
+	child_connect_1 [label="" height=0.2 shape=star width=0.2]
+	1 -> child_connect_1 [dir=none len=2.0 style=solid weight=3]
+	child_connect_1 -> 2 [dir=none len=2.0 style=solid weight=3]
+	joint_2_3 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
 	{
 		rank=same
-		1 -> joint_1_2 [color=red dir=none len=0.7 style=bold]
-		joint_1_2 -> 2 [color=red dir=none len=0.7 style=bold]
+		2 -> joint_2_3 [color=red dir=none len=0.7 style=bold]
+		joint_2_3 -> 3 [color=red dir=none len=0.7 style=bold]
 	}
-	child_connect_1 [label="" height=0.2 shape=star width=0.2]
-	joint_1_2 -> child_connect_1 [dir=none len=2.0 style=solid weight=3]
-	child_connect_1 -> 3 [dir=none len=2.0 style=solid weight=3]
 	child_connect_2 [label="" height=0.2 shape=star width=0.2]
-	2 -> child_connect_2 [dir=none len=2.0 style=solid weight=3]
-	child_connect_2 -> 3 [dir=none len=2.0 style=solid weight=3]
+	joint_2_3 -> child_connect_2 [dir=none len=2.0 style=solid weight=3]
+	child_connect_2 -> 6 [dir=none len=2.0 style=solid weight=3]
+	joint_4_5 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
+	{
+		rank=same
+		4 -> joint_4_5 [color=red dir=none len=0.7 style=bold]
+		joint_4_5 -> 5 [color=red dir=none len=0.7 style=bold]
+	}
+	child_connect_4 [label="" height=0.2 shape=star width=0.2]
+	joint_4_5 -> child_connect_4 [dir=none len=2.0 style=solid weight=3]
+	child_connect_4 -> 9 [dir=none len=2.0 style=solid weight=3]
+	joint_6_10 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
+	{
+		rank=same
+		6 -> joint_6_10 [color=red dir=none len=0.7 style=bold]
+		joint_6_10 -> 10 [color=red dir=none len=0.7 style=bold]
+	}
+	child_connect_6 [label="" height=0.2 shape=star width=0.2]
+	joint_6_10 -> child_connect_6 [dir=none len=2.0 style=solid weight=3]
+	child_connect_6 -> 11 [dir=none len=2.0 style=solid weight=3]
+	child_connect_7 [label="" height=0.2 shape=star width=0.2]
+	7 -> child_connect_7 [dir=none len=2.0 style=solid weight=3]
+	child_connect_7 -> 8 [dir=none len=2.0 style=solid weight=3]
+	joint_8_9 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
+	{
+		rank=same
+		8 -> joint_8_9 [color=red dir=none len=0.7 style=bold]
+		joint_8_9 -> 9 [color=red dir=none len=0.7 style=bold]
+	}
+	child_connect_8 [label="" height=0.2 shape=star width=0.2]
+	joint_8_9 -> child_connect_8 [dir=none len=2.0 style=solid weight=3]
+	child_connect_8 -> 10 [dir=none len=2.0 style=solid weight=3]
+	joint_11_12 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
+	{
+		rank=same
+		11 -> joint_11_12 [color=red dir=none len=0.7 style=bold]
+		joint_11_12 -> 12 [color=red dir=none len=0.7 style=bold]
+	}
+	child_connect_11 [label="" height=0.2 shape=star width=0.2]
+	joint_11_12 -> child_connect_11 [dir=none len=2.0 style=solid weight=3]
+	child_connect_11 -> 13 [dir=none len=2.0 style=solid weight=3]
+	joint_13_23 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
+	{
+		rank=same
+		13 -> joint_13_23 [color=red dir=none len=0.7 style=bold]
+		joint_13_23 -> 23 [color=red dir=none len=0.7 style=bold]
+	}
+	child_connect_13 [label="" height=0.2 shape=star width=0.2]
+	joint_13_23 -> child_connect_13 [dir=none len=2.0 style=solid weight=3]
+	child_connect_13 -> 14 [dir=none len=2.0 style=solid weight=3]
+	child_connect_13 -> 15 [dir=none len=2.0 style=solid weight=3]
 }

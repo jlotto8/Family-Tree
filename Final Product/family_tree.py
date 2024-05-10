@@ -1,70 +1,5 @@
-# Import necessary libraries
-from graphviz import Digraph  # Import Digraph class from graphviz for drawing family tree graphs
-import csv  # Import CSV module for reading CSV files
-
-# Define a class for representing a person
-class Person:
-    def __init__(self, id, name, gender, birth=None, death=None):
-        # Initialize attributes of the Person class
-        self.id = id  # Unique identifier for each person
-        self.name = name  # Name of the person
-        self.gender = gender  # Gender of the person ('M' for male, 'F' for female)
-        self.birth = birth  # Birth date of the person
-        self.death = death  # Death date of the person (if applicable)
-        self.spouse = None  # Reference to the spouse of the person
-        self.children = []  # List of references to the children of the person
-        self.parent = None  # Reference to the parent of the person (not used in this code)
-
-# Function to read data from a CSV file and create Person objects
-def read_data(filename):
-    people = {}  # Dictionary to store Person objects with their IDs as keys
-    # Open the CSV file using a context manager
-    with open(filename, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)  # Create a CSV reader object
-        # Iterate over each row in the CSV file
-        for row in reader:
-            # Create a Person object with data from the CSV row
-            person = Person(
-                id=int(row['ID']),
-                name=row['Name'],
-                gender=row['Gender'],
-                birth=row.get('Birth Date'),
-                death=row.get('Death Date')
-            )
-            people[person.id] = person  # Add the Person object to the dictionary using its ID as the key
-
-    # Validate Spouse IDs
-    # Reopen the CSV file to validate spouse IDs after creating all Person objects
-    with open(filename, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)  # Create another CSV reader object
-        # Iterate over each row in the CSV file again
-        for row in reader:
-            person = people[int(row['ID'])]  # Get the Person object corresponding to the current row's ID
-            if row['Spouse ID']:
-                spouse_id = int(row['Spouse ID'])  # Get the spouse ID from the CSV row
-                if spouse_id not in people:  # Check if the spouse ID exists in the dictionary
-                    raise ValueError(f"Spouse ID {spouse_id} does not exist. Please review your input data.")
-                person.spouse = people[spouse_id]  # Set the spouse attribute of the Person object
-
-    # Validate Children IDs
-    # Reopen the CSV file to validate children IDs after creating all Person objects
-    with open(filename, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)  # Create another CSV reader object
-        # Iterate over each row in the CSV file again
-        for row in reader:
-            person = people[int(row['ID'])]  # Get the Person object corresponding to the current row's ID
-            if row['Children IDs']:
-                children_ids = row['Children IDs'].split(';')  # Split children IDs separated by ';'
-                valid_children_ids = []  # List to store valid child IDs
-                for child_id_str in children_ids:
-                    if child_id_str:
-                        child_id = int(child_id_str)  # Convert child ID from string to integer
-                        if child_id not in people:  # Check if the child ID exists in the dictionary
-                            raise ValueError(f"Child ID {child_id} does not exist. Please review your input data.")
-                        valid_children_ids.append(child_id)  # Add valid child IDs to the list
-                person.children = [people[child_id] for child_id in valid_children_ids]  # Set children attribute
-
-    return people  # Return the dictionary of Person objects
+from graphviz import Digraph
+from data_handling import read_data, validate_relationships
 
 # Function to create a family tree graph using Graphviz
 def create_family_tree(people):
@@ -106,11 +41,13 @@ def create_family_tree(people):
 
     dot.render('output/family_tree', view=True)  # Render the family tree graph as a PNG image
 
-# Main function to execute the program
+# This is the main script for creating the family tree using Graphviz.
 def main():
-    people = read_data('union2.csv')  # Read data from the CSV file and create Person objects
-    create_family_tree(people)  # Create a family tree graph using the created Person objects
+    people = read_data('family_data.csv') # Read data from the CSV file and create Person objects
+    validate_relationships('family_data.csv', people) # Validates input data from csv
+    create_family_tree(people) # # Create a family tree graph using the created Person objects
+    # Output the graph...
 
-# Check if the script is being run directly
+# # Check if the script is being run directly
 if __name__ == "__main__":
     main()  # Call the main function to start the program

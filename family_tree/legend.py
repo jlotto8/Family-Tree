@@ -1,3 +1,6 @@
+import csv
+from graphviz import Digraph
+
 # Define a class for representing a person
 class Person:
     def __init__(self, id, name, gender, birth=None, death=None):
@@ -10,9 +13,6 @@ class Person:
         self.spouse = None  # Reference to the spouse of the person
         self.children = []  # List of references to the children of the person
         self.parent = None  # Reference to the parent of the person (not used in this code)
-
-import csv
-from graphviz import Digraph
 
 def read_data(filename):
     people = {}
@@ -48,7 +48,6 @@ def validate_relationships(filename, people):
                         raise ValueError(f"Child ID {child_id} does not exist.")
                 person.children = [people[id] for id in children_ids]
 
-# Function to create a family tree graph using Graphviz
 def create_family_tree(people):
     dot = Digraph('FamilyTree', format='png')  # Create a Digraph object for the family tree
     dot.attr(rankdir='TB', splines='ortho')  # Set graph attributes (orientation and edge style)
@@ -86,6 +85,10 @@ def create_family_tree(people):
             for child in person.children:
                 dot.edge(child_connect, str(child.id), style='solid', len='2.0', weight='3', dir='none')  # Connect child connection node to children nodes
 
+    # Add legend to the graph
+    add_legend(dot)
+
+    dot.render('output/bigger_tree', view=True)  # Render the family tree graph as a PNG image
 
 def add_legend(dot):
     with dot.subgraph(name='cluster_legend') as legend:
@@ -97,18 +100,11 @@ def add_legend(dot):
         legend.edge('SpouseJoint', 'ChildConnect', label='Parent to Child Connection', style='solid', dir='none')
         legend.edge('Male', 'SpouseJoint', label='Spouse Connection', style='bold', color='red', dir='none')
 
-    add_legend(dot)
-    dot.render('output/bigger_tree', view=True)  # Render the family tree graph as a PNG image
-
-
-# This is the main script for creating the family tree using Graphviz.
 def main():
-    people = read_data('bigger.csv') # Read data from the CSV file and create Person objects
-    validate_relationships('bigger.csv', people) # Validates input data from csv
-    create_family_tree(people) # # Create a family tree graph using the created Person objects
-    # Output the graph...
+    people = read_data('bigger.csv')  # Read data from the CSV file and create Person objects
+    validate_relationships('bigger.csv', people)  # Validates input data from csv
+    create_family_tree(people)  # Create a family tree graph using the created Person objects
 
-# # Check if the script is being run directly
+# Check if the script is being run directly
 if __name__ == "__main__":
     main()  # Call the main function to start the program
-

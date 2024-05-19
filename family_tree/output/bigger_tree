@@ -31,6 +31,20 @@ digraph FamilyTree {
  2017" center=true fillcolor=plum1]
 	15 [label="Vera Kickery 
  2023" center=true fillcolor=plum1]
+	16 [label="Anna Lotto 
+ 1976" center=true fillcolor=plum1]
+	17 [label="Leah Lotto  
+ 1980" center=true fillcolor=plum1]
+	18 [label="Tom Fritzche 
+ 1980" center=true fillcolor=lightblue3]
+	19 [label="Liam Gorman 
+ 1975" center=true fillcolor=lightblue3]
+	20 [label="Mabyn Gorman  
+ 2012" center=true fillcolor=plum1]
+	21 [label="Sonny Gorman 
+ 2015" center=true fillcolor=lightblue3]
+	22 [label="Monty  Lotto 
+ 2016" center=true fillcolor=lightblue3]
 	23 [label="Joseph Kickery 
  1985" center=true fillcolor=lightblue3]
 	child_connect_1 [label="" height=0.2 shape=star width=0.2]
@@ -62,7 +76,7 @@ digraph FamilyTree {
 	}
 	child_connect_6 [label="" height=0.2 shape=star width=0.2]
 	joint_6_10 -> child_connect_6 [dir=none len=2.0 style=solid weight=3]
-	child_connect_6 -> 11 [dir=none len=2.0 style=solid weight=3]
+	child_connect_6 -> 12 [dir=none len=2.0 style=solid weight=3]
 	child_connect_7 [label="" height=0.2 shape=star width=0.2]
 	7 -> child_connect_7 [dir=none len=2.0 style=solid weight=3]
 	child_connect_7 -> 8 [dir=none len=2.0 style=solid weight=3]
@@ -84,6 +98,8 @@ digraph FamilyTree {
 	child_connect_11 [label="" height=0.2 shape=star width=0.2]
 	joint_11_12 -> child_connect_11 [dir=none len=2.0 style=solid weight=3]
 	child_connect_11 -> 13 [dir=none len=2.0 style=solid weight=3]
+	child_connect_11 -> 16 [dir=none len=2.0 style=solid weight=3]
+	child_connect_11 -> 17 [dir=none len=2.0 style=solid weight=3]
 	joint_13_23 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
 	{
 		rank=same
@@ -94,4 +110,32 @@ digraph FamilyTree {
 	joint_13_23 -> child_connect_13 [dir=none len=2.0 style=solid weight=3]
 	child_connect_13 -> 14 [dir=none len=2.0 style=solid weight=3]
 	child_connect_13 -> 15 [dir=none len=2.0 style=solid weight=3]
+	joint_16_19 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
+	{
+		rank=same
+		16 -> joint_16_19 [color=red dir=none len=0.7 style=bold]
+		joint_16_19 -> 19 [color=red dir=none len=0.7 style=bold]
+	}
+	child_connect_16 [label="" height=0.2 shape=star width=0.2]
+	joint_16_19 -> child_connect_16 [dir=none len=2.0 style=solid weight=3]
+	child_connect_16 -> 20 [dir=none len=2.0 style=solid weight=3]
+	child_connect_16 -> 21 [dir=none len=2.0 style=solid weight=3]
+	joint_17_18 [label="" height=0.2 shape=doublecircle style=solid width=0.2]
+	{
+		rank=same
+		17 -> joint_17_18 [color=red dir=none len=0.7 style=bold]
+		joint_17_18 -> 18 [color=red dir=none len=0.7 style=bold]
+	}
+	child_connect_17 [label="" height=0.2 shape=star width=0.2]
+	joint_17_18 -> child_connect_17 [dir=none len=2.0 style=solid weight=3]
+	child_connect_17 -> 22 [dir=none len=2.0 style=solid weight=3]
+	subgraph cluster_legend {
+		color=black label=Legend
+		Male [label=Male fillcolor=lightblue3]
+		Female [label=Female fillcolor=plum1]
+		SpouseJoint [label="" shape=doublecircle style=solid]
+		ChildConnect [label="" shape=star]
+		SpouseJoint -> ChildConnect [label="Parent to Child Connection" dir=none style=solid]
+		Male -> SpouseJoint [label="Spouse Connection" color=red dir=none style=bold]
+	}
 }

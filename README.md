@@ -9,22 +9,6 @@ It represent that data from the csv as objects in Python, and then visualize the
 - **Object-Oriented Programming**: Utilizes a custom `Person` class to store individual and relationship data.
 - **Graph Visualization**: Creates and saves a visual family tree using Graphviz, highlighting different relationships and attributes.
 
-# Getting Started
-
-To get started with this project, you'll need Python installed on your computer. You'll also need the graphviz and csv libraries. If you haven't installed graphviz, you can do so using pip:
-
-pip install graphviz
-Code Overview
-
-# Importing Libraries
-The project begins by importing necessary libraries:
-
-from graphviz import Digraph
-import csv 
-
-- Digraph from graphviz is used to create directed graphs, ideal for representing relationships like parent-child or spouse-spouse.
-- The csv module is used for reading data from CSV files.
-
 ## Prerequisites
 
 To run this project, you need:
@@ -36,6 +20,16 @@ To run this project, you need:
 You can install the necessary Python libraries using pip:
 bash pip install graphviz. Make sure Graphviz is also installed on your system. 
 For Graphviz installation instructions, visit Graphviz's website 
+
+# Importing Libraries
+The project begins by importing necessary libraries:
+
+from graphviz import Digraph
+import csv 
+
+- Digraph from graphviz is used to create directed graphs, ideal for representing relationships like parent-child or spouse-spouse.
+- The csv module is used for reading data from CSV files.
+
 
 ## Project Files
 

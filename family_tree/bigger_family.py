@@ -86,20 +86,20 @@ def create_family_tree(people):
             for child in person.children:
                 dot.edge(child_connect, str(child.id), style='solid', len='2.0', weight='3', dir='none')  # Connect child connection node to children nodes
 
-
-def add_legend(dot):
-    with dot.subgraph(name='cluster_legend') as legend:
-        legend.attr(label='Legend', color='black')
-        legend.node('Male', 'Male', fillcolor='lightblue3')
-        legend.node('Female', 'Female', fillcolor='plum1')
-        legend.node('SpouseJoint', '', shape='doublecircle', style='solid')
-        legend.node('ChildConnect', '', shape='star')
-        legend.edge('SpouseJoint', 'ChildConnect', label='Parent to Child Connection', style='solid', dir='none')
-        legend.edge('Male', 'SpouseJoint', label='Spouse Connection', style='bold', color='red', dir='none')
-
     add_legend(dot)
     dot.render('output/bigger_tree', view=True)  # Render the family tree graph as a PNG image
 
+
+def add_legend(dot):
+    with dot.subgraph(name='cluster_legend') as legend:
+        legend.attr(label='Legend', color='black',style='bold', fontsize='24')  
+        legend.node('Male', 'Male', fillcolor='lightblue3', shape='ellipse', width='1', height='0.5', fixedsize='true')  
+        legend.node('Female', 'Female', fillcolor='plum1', shape='ellipse', width='1', height='0.5', fixedsize='true')  
+        legend.node('SpouseJoint', '', shape='doublecircle', style='solid', width='0.4', height='0.4')  
+        legend.node('ChildConnect', '', shape='star', style='solid', width='0.4', height='0.4')  
+        legend.edge('SpouseJoint', 'ChildConnect', label='Parent to Child Connection', style='solid', dir='none', fontsize='21')
+        legend.edge('Male', 'SpouseJoint', label='Spouse Connection', style='bold', color='red', dir='none', fontsize='21')
+   
 
 # This is the main script for creating the family tree using Graphviz.
 def main():

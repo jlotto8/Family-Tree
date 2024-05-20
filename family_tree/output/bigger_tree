@@ -130,12 +130,12 @@ digraph FamilyTree {
 	joint_17_18 -> child_connect_17 [dir=none len=2.0 style=solid weight=3]
 	child_connect_17 -> 22 [dir=none len=2.0 style=solid weight=3]
 	subgraph cluster_legend {
-		color=black label=Legend
-		Male [label=Male fillcolor=lightblue3]
-		Female [label=Female fillcolor=plum1]
-		SpouseJoint [label="" shape=doublecircle style=solid]
-		ChildConnect [label="" shape=star]
-		SpouseJoint -> ChildConnect [label="Parent to Child Connection" dir=none style=solid]
-		Male -> SpouseJoint [label="Spouse Connection" color=red dir=none style=bold]
+		color=black fontsize=24 label=Legend style=bold
+		Male [label=Male fillcolor=lightblue3 fixedsize=true height=0.5 shape=ellipse width=1]
+		Female [label=Female fillcolor=plum1 fixedsize=true height=0.5 shape=ellipse width=1]
+		SpouseJoint [label="" height=0.4 shape=doublecircle style=solid width=0.4]
+		ChildConnect [label="" height=0.4 shape=star style=solid width=0.4]
+		SpouseJoint -> ChildConnect [label="Parent to Child Connection" dir=none fontsize=21 style=solid]
+		Male -> SpouseJoint [label="Spouse Connection" color=red dir=none fontsize=21 style=bold]
 	}
 }

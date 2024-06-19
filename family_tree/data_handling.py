@@ -1,5 +1,4 @@
 # This module handles reading and validating data from a CSV file.
-
 import csv
 from person import Person
 
